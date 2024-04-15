@@ -22,8 +22,10 @@ jobs:
     needs: build
     runs-on: aws-ec2
     steps: 
+      - name: Login to Docker Hub
+        run: docker login -u ${{ secrets.DOCKER_USERNAME}} -p ${{secrets.DOCKER_PASSWORD}}
       - name: Pull image from docker hub
-        run: sudo docker pull chamikagayashan/reactjs-app:latest
+        run: docker pull chamikagayashan/reactjs-app:latest
       - name: Delete Old Containers
         run: docker rm -f reactContainer
       - name: Run Docker Container
